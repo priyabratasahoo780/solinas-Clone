@@ -1,0 +1,794 @@
+  * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  body {
+      background-color: #f9f9f9;
+      overflow-x: hidden;
+  }
+
+  /* --- NAVIGATION --- */
+  nav {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background-color: rgb(0, 0, 0);
+      width: 100%;
+      height: 80px;
+  }
+
+  .solinas_nav {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+  }
+
+  .solinas_nav_in {
+      width: 92%;
+      max-width: 1400px;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+  }
+
+  .box1 {
+      display: flex;
+      align-items: center;
+  }
+
+  .solinas {
+      width: 150px;
+      height: 50px;
+      background-image: url("https://res.cloudinary.com/dtw64z2mf/image/upload/v1763654354/logo_Webp-150x50_lqtzw7.webp");
+      background-repeat: no-repeat;
+      background-size: contain;
+  }
+
+  /* Desktop Menu */
+  .box2 {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+  }
+
+  .box2 ul {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      padding: 0;
+  }
+
+  .box2 a {
+      color: white;
+      text-decoration: none;
+      padding: 20px 15px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 1rem;
+      white-space: nowrap;
+      transition: 0.2s ease;
+  }
+
+  .box2 a:hover {
+      border-bottom: 2px solid rgb(48, 171, 150);
+  }
+
+  .box2 img {
+      width: 12px;
+      filter: invert(1);
+  }
+
+  /* Dropdowns */
+  .dropdown,
+  .dropdown1 {
+      position: relative;
+  }
+
+  .dropdown-menu,
+  .dropdown-menu1 {
+      list-style: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: #000;
+      visibility: hidden;
+      opacity: 0;
+      display: flex;
+      flex-direction: column;
+      min-width: 160px;
+      padding: 10px 0;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+      z-index: 1001;
+  }
+
+  .dropdown-menu li a,
+  .dropdown-menu1 li a {
+      padding: 12px 20px;
+      border-bottom: none;
+  }
+
+  .dropdown-menu li a:hover,
+  .dropdown-menu1 li a:hover {
+      background-color: #222;
+      color: rgb(56, 186, 162);
+  }
+
+  .dropdown:hover .dropdown-menu,
+  .dropdown1:hover .dropdown-menu1 {
+      visibility: visible;
+      opacity: 1;
+  }
+
+  /* Buttons */
+  .box3 {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+  }
+
+  .ai,
+  .contact {
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      color: white;
+      transition: 0.3s;
+      text-align: center;
+      white-space: nowrap;
+  }
+
+  .ai {
+      background-color: rgb(56, 186, 162);
+  }
+
+  .ai:hover {
+      background-color: white;
+      color: rgb(56, 186, 162);
+  }
+
+  .contact {
+      background: linear-gradient(90deg, #054a54, rgb(48, 171, 150));
+  }
+
+  .contact:hover {
+      background: white;
+      color: rgb(56, 186, 162);
+  }
+
+  /* Mobile Hamburger */
+  .menu-toggle {
+      display: none;
+  }
+
+  .hamburger {
+      display: none;
+      font-size: 28px;
+      color: white;
+      cursor: pointer;
+  }
+
+  .united {
+      width: 100%;
+      padding: 40px 0 20px 0;
+      background: linear-gradient(to bottom, rgb(48, 171, 150), #054a54);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 700;
+      text-align: center;
+  }
+
+  .btn {
+      width: 220px;
+      height: 50px;
+      border-radius: 30px;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 30px auto;
+      background: linear-gradient(to bottom, #054a54, rgb(48, 171, 150));
+  }
+
+  /* This replaces the fixed width grid */
+  .container,
+  .main_video,
+  .main_news {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      padding: 20px 5%;
+      margin: 0 auto;
+      max-width: 1300px;
+  }
+
+  .news-item {
+      border-radius: 20px;
+      transition: all 0.4s ease-in-out;
+      background-color: #fff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      display: none;
+      /* Controlled by JS */
+      flex-direction: column;
+      overflow: hidden;
+  }
+
+  .news-item.show {
+      display: flex;
+      animation: fadeIn 0.5s;
+  }
+
+  .news-item:hover {
+      transform: translateY(-10px);
+      cursor: pointer;
+  }
+
+  .photos {
+      width: 100%;
+      height: 200px;
+  }
+
+  .photos img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+  }
+
+  .greens {
+      width: 100%;
+      flex-grow: 1;
+      background-color: rgb(91, 199, 179);
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 140px;
+  }
+
+  .content1 {
+      color: white;
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 15px;
+  }
+
+  .main_conts {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.3);
+      padding-top: 10px;
+  }
+
+  .conts1 {
+      color: white;
+      font-weight: 600;
+      font-size: 0.9rem;
+  }
+
+  .conts2 {
+      color: white;
+      font-size: 0.85rem;
+  }
+
+  .main_video div {
+      width: 100%;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s;
+  }
+
+  .main_video div:hover {
+      transform: translateY(-5px);
+  }
+
+  iframe {
+      width: 100%;
+      aspect-ratio: 16/9;
+      height: auto;
+      border: none;
+  }
+
+  .news {
+      height: 250px;
+      border-radius: 20px;
+      box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.574);
+      transition: all 0.4s ease-in-out;
+      cursor: pointer;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+  }
+
+  .news:hover {
+      transform: scale(1.04);
+  }
+
+  .news1 {
+      background-image: url('https://solinas.in/wp-content/uploads/2025/12/WhatsApp-Image-2025-12-17-at-12.35.18-PM-461x1024.jpeg');
+  }
+
+  .news2 {
+      background-image: url('https://solinas.in/wp-content/uploads/2025/12/WhatsApp-Image-2025-12-17-at-12.35.17-PM-600x1024.jpeg');
+  }
+
+  .news3 {
+      background-image: url('https://solinas.in/wp-content/uploads/2025/12/WhatsApp-Image-2025-12-17-at-12.12.08-PM-819x1024.jpeg');
+  }
+
+  .news4 {
+      background-image: url('https://solinas.in/wp-content/uploads/2025/08/Murasoli-News-1024x964.png');
+  }
+
+  .news5 {
+      background-image: url('https://solinas.in/wp-content/uploads/2025/06/Lokmat-June-25-Chhatrapati-Sambhajinagar.jpg');
+  }
+
+  .news6 {
+      background-image: url('https://solinas.in/wp-content/uploads/2025/05/Aurangabad-1-837x1024.jpeg');
+  }
+
+  .news7 {
+      background-image: url('https://solinas.in/wp-content/uploads/2025/05/Aurangabad-2-1024x702.jpeg');
+  }
+
+  .news8 {
+      background-image: url('https://solinas.in/wp-content/uploads/2025/05/Aurangabad-3-1024x766.jpeg');
+  }
+
+  .news9 {
+      background-image: url('https://solinas.in/wp-content/uploads/2025/05/Secunderabad-2.jpeg');
+  }
+
+  .news10 {
+      background-image: url('https://solinas.in/wp-content/uploads/2025/05/Karnataka-752x1024.jpeg');
+  }
+
+  .news11 {
+      background-image: url('https://solinas.in/wp-content/uploads/2025/05/TOI.png');
+  }
+
+  .news12 {
+      background-image: url('https://solinas.in/wp-content/uploads/2025/12/WhatsApp-Image-2025-12-17-at-12.35.18-PM-461x1024.jpeg');
+  }
+
+  .news13 {
+      background-image: url('https://solinas.in/wp-content/uploads/2025/05/The-Hindu-Madurai-768x1024.jpeg');
+  }
+
+  .news14 {
+      background-image: url('https://solinas.in/wp-content/uploads/2025/05/The-Hindu-Chennai.jpeg');
+  }
+
+  .news15 {
+      background-image: url('https://solinas.in/wp-content/uploads/2025/05/Secunderabad-3-647x1024.jpeg');
+  }
+
+  .news16 {
+      background-image: url('https://solinas.in/wp-content/uploads/2025/05/Secunderabad-1-1024x484.jpeg');
+  }
+
+  .news17 {
+      background-image: url('https://solinas.in/wp-content/uploads/2025/12/WhatsApp-Image-2025-12-17-at-12.35.18-PM-461x1024.jpeg');
+  }
+
+  .news18 {
+      background-image: url('https://solinas.in/wp-content/uploads/2025/05/Nagpur-news.png');
+  }
+
+  .news19 {
+      background-image: url('https://solinas.in/wp-content/uploads/2025/05/Minister-Palanivel-Thiaga-Rajan-inaugurates-robotic-manhole-cleaning-machine-in-Madurai_page-0001-724x1024.jpg');
+  }
+
+  .news20 {
+      background-image: url('https://solinas.in/wp-content/uploads/2025/05/Madurai-Endobot-TOI-982x1024.jpg');
+  }
+
+  .news21 {
+      background-image: url('https://solinas.in/wp-content/uploads/2025/05/Maalai-Murasu-768x1024.jpeg');
+  }
+
+  .news22 {
+      background-image: url('https://solinas.in/wp-content/uploads/2025/05/IMG-20250228-WA0013.jpg');
+  }
+
+  .news23 {
+      background-image: url('https://solinas.in/wp-content/uploads/2025/05/Dinamalar-613x1024.jpeg');
+  }
+
+  .news24 {
+      background-image: url('https://solinas.in/wp-content/uploads/2025/05/Dinakaran-Coimbatore-702x1024.jpg');
+  }
+
+  .news25 {
+      background-image: url('https://solinas.in/wp-content/uploads/2025/05/Dhinakaran-Madurai-768x1024.jpeg');
+  }
+
+  .news26 {
+      background-image: url('https://solinas.in/wp-content/uploads/2025/05/Dhinakaran-GCC-820x1024.jpg');
+  }
+
+  .news27 {
+      background-image: url('https://solinas.in/wp-content/uploads/2025/05/Dhina-Tamil-768x1024.jpeg');
+  }
+
+  .news28 {
+      background-image: url('https://solinas.in/wp-content/uploads/2025/05/Deccan-Herald.jpeg');
+  }
+
+  .news29 {
+      background-image: url('https://solinas.in/wp-content/uploads/2025/05/Dainik-Jagran-Varanasi-Homosep-1024x526.jpeg');
+  }
+
+  .news30 {
+      background-image: url('https://solinas.in/wp-content/uploads/2025/05/Business-Line-1024x896.jpeg');
+  }
+
+  .news31 {
+      background-image: url('https://solinas.in/wp-content/uploads/2025/05/Bangalore-Homosep.jpg');
+  }
+
+  .news32 {
+      background-image: url('https://solinas.in/wp-content/uploads/2025/05/Bangalore-Water-579x1024.jpg');
+  }
+
+  .news33 {
+      background-image: url('https://solinas.in/wp-content/uploads/2025/05/Aurangabad.jpg');
+  }
+
+  .news34 {
+      background-image: url('https://solinas.in/wp-content/uploads/2025/05/Times-of-India-Madurai-768x1024.jpeg');
+  }
+
+  .news35 {
+      background-image: url('https://solinas.in/wp-content/uploads/2025/05/Raipur-HomoSEP.jpg');
+  }
+
+  .news36 {
+      background-image: url('https://solinas.in/wp-content/uploads/2025/05/Dhinakaran-Chennai-1024x857.jpg');
+  }
+
+  .news37 {
+      background-image: url('https://solinas.in/wp-content/uploads/2025/05/Trichy.png');
+  }
+
+  .news38 {
+      background-image: url('https://solinas.in/wp-content/uploads/2025/05/Gulf-News-Solinas_page-0001-791x1024.jpg');
+  }
+
+  .news39 {
+      background-image: url('https://solinas.in/wp-content/uploads/2025/05/iamrenew.com-Chennai-water-board-CMWSSB-brings-robots-to-tackle-water-leaks_page-0001-724x1024.jpg');
+  }
+
+  .news40 {
+      background-image: url('https://solinas.in/wp-content/uploads/2025/05/Solinas-karnataka_page-0001-724x1024.jpg');
+  }
+
+  .news41 {
+      background-image: url('https://solinas.in/wp-content/uploads/2025/05/TOI-GCC_page-0001-791x1024.jpg');
+  }
+
+  .news42 {
+      background-image: url('https://solinas.in/wp-content/uploads/2025/05/Now-a-robotic-vehicle-to-remove-slurry-The-Hindu_page-0001-724x1024.jpg');
+  }
+
+  .news43 {
+      background-image: url('https://solinas.in/wp-content/uploads/2025/05/News-clippings_page-0001-724x1024.jpg');
+  }
+
+  .news44 {
+      background-image: url('https://solinas.in/wp-content/uploads/2025/05/News-Clippings1_page-0001-724x1024.jpg');
+  }
+
+  .news45 {
+      background-image: url('https://solinas.in/wp-content/uploads/2025/05/News-Clippings1_page-0002-724x1024.jpg');
+  }
+
+  .news46 {
+      background-image: url('https://solinas.in/wp-content/uploads/2025/05/End-of-Manual-Scavenging_-India-Debuts-Septic-Tank-Cleaning-Robot-Homosep-Atom-Republic-World_page-0001-724x1024.jpg');
+  }
+
+  .news47 {
+      background-image: url('https://solinas.in/wp-content/uploads/2025/05/IIT-Madras.png');
+  }
+
+  /* --- PAGINATION --- */
+  .longs {
+      width: 100%;
+      margin: 40px auto;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+  }
+
+  .page-btn {
+      width: 40px;
+      height: 40px;
+      border: 2px solid rgb(91, 199, 179);
+      background: white;
+      color: rgb(91, 199, 179);
+      font-size: 1.1rem;
+      font-weight: 700;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: 0.3s;
+      flex-shrink: 0;
+  }
+
+  .page-btn:hover,
+  .page-btn.active {
+      background-color: rgb(91, 199, 179);
+      color: white;
+  }
+
+  /* --- FOOTER --- */
+  .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 30px 5%;
+      background: #fff;
+      border-bottom: 1px solid #f0f0f0;
+  }
+
+  .logo-text img {
+      height: 40px;
+      width: auto;
+  }
+
+  .follow-section {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+  }
+
+  .social-icons {
+      display: flex;
+      gap: 10px;
+  }
+
+  .icon-circle {
+      width: 35px;
+      height: 35px;
+      background: #000;
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-decoration: none;
+      transition: 0.2s;
+  }
+
+  .icon-circle:hover {
+      transform: scale(1.1);
+      opacity: 0.8;
+  }
+
+  .main-footer {
+      background: #333;
+      color: #fff;
+      padding: 50px 5%;
+  }
+
+  .footer-grid {
+      display: grid;
+      /* Responsive Footer Columns */
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 30px;
+  }
+
+  .column h3 {
+      color: #4ed9b6;
+      margin-bottom: 15px;
+      font-size: 1rem;
+  }
+
+  .column ul {
+      list-style: none;
+  }
+
+  .column ul li {
+      font-size: 0.9rem;
+      margin-bottom: 8px;
+      color: #ccc;
+      cursor: pointer;
+  }
+
+  .column ul li:hover {
+      color: white;
+  }
+
+  .footer-bottom-flex {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 40px;
+      border-top: 1px solid #444;
+      padding-top: 30px;
+      flex-wrap: wrap;
+      gap: 30px;
+  }
+
+  .bottom-links {
+      display: flex;
+      gap: 50px;
+      flex-wrap: wrap;
+  }
+
+  .footer-actions {
+      display: flex;
+      gap: 15px;
+  }
+
+  .site-footer {
+      background: #000;
+      color: #fff;
+      padding: 20px 5%;
+      border-top: 1px solid #222;
+  }
+
+  .footer-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+  }
+
+  .iso-section {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+  }
+
+  .iso-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 10px;
+  }
+
+  .iso-item img {
+      height: 30px;
+      width: auto;
+  }
+
+  .footer-links a {
+      color: #fff;
+      text-decoration: none;
+      margin-left: 15px;
+      font-size: 0.8rem;
+  }
+
+  .scroll-top button {
+      background: #38b2ac;
+      color: white;
+      border: none;
+      width: 35px;
+      height: 35px;
+      cursor: pointer;
+      border-radius: 4px;
+  }
+
+  /* --- RESPONSIVE MEDIA QUERIES --- */
+  @media (max-width: 992px) {
+      .header-container {
+          flex-direction: column;
+          gap: 20px;
+          text-align: center;
+      }
+
+      .follow-section {
+          flex-direction: column;
+      }
+  }
+
+  @media (max-width: 768px) {
+
+      /* Mobile Nav */
+      .hamburger {
+          display: block;
+          z-index: 1003;
+      }
+
+      .box2 {
+          display: none;
+          position: absolute;
+          top: 80px;
+          left: 0;
+          width: 100%;
+          background-color: #000;
+          flex-direction: column;
+          padding: 20px;
+          z-index: 1002;
+      }
+
+      .box2 ul {
+          flex-direction: column;
+          width: 100%;
+      }
+
+      .box2 a {
+          width: 100%;
+          justify-content: center;
+          padding: 15px;
+      }
+
+      #nav-toggle:checked~.box2 {
+          display: flex;
+      }
+
+      .box3 {
+          display: none;
+      }
+
+      /* Hide login buttons on small screens */
+
+      /* Mobile Footer */
+      .footer-bottom-flex {
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+      }
+
+      .bottom-links {
+          justify-content: center;
+          gap: 30px;
+      }
+
+      .footer-actions {
+          width: 100%;
+          flex-direction: column;
+      }
+
+      .btn {
+          width: 100%;
+      }
+
+      .footer-container {
+          flex-direction: column;
+          text-align: center;
+      }
+  }
+
+  @keyframes fadeIn {
+      from {
+          opacity: 0;
+      }
+
+      to {
+          opacity: 1;
+      }
+  }
+
+  .ne {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 6vh;
+      font-size: 1.2rem;
+  }
+
+  .ne1 {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 6vh;
+      font-size: 1.2rem;
+  }

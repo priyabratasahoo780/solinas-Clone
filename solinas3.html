@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solinas - Responsive Blog</title>
+</head>
+<style>
+    /* --- RESET & BASICS --- */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+        overflow-x: hidden;
+        background-color: #f9f9f9;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+    }
+
+    /* --- NAVIGATION --- */
+    nav {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        background-color: rgb(0, 0, 0);
+        width: 100%;
+    }
+
+    .solinas_nav {
+        width: 100%;
+        height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .solinas_nav_in {
+        width: 92%;
+        max-width: 1400px;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .box1 {
+        display: flex;
+        align-items: center;
+        z-index: 1002;
+    }
+
+    .solinas {
+        width: 150px;
+        height: 50px;
+        background-image: url("https://res.cloudinary.com/dtw64z2mf/image/upload/v1763654354/logo_Webp-150x50_lqtzw7.webp");
+        background-repeat: no-repeat;
+        background-size: contain;
+    }
+
+    /* Desktop Menu */
+    .box2 {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+    }
+
+    .box2 ul {
+        list-style: none;
+        display: flex;
+        align-items: center;
+        padding: 0;
+    }
+
+    .box2 a {
+        color: white;
+        text-decoration: none;
+        padding: 20px 15px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 1rem;
+        white-space: nowrap;
+        transition: 0.2s ease;
+    }
+
+    .box2 a:hover {
+        border-bottom: 2px solid rgb(48, 171, 150);
+    }
+
+    .box2 img {
+        width: 12px;
+        filter: invert(1);
+    }
+
+    /* Dropdowns */
+    .dropdown,
+    .dropdown1 {
+        position: relative;
+    }
+
+    .dropdown-menu,
+    .dropdown-menu1 {
+        list-style: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background-color: #000;
+        visibility: hidden;
+        opacity: 0;
+        display: flex;
+        flex-direction: column;
+        min-width: 160px;
+        padding: 10px 0;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        z-index: 1001;
+    }
+
+    .dropdown-menu li a,
+    .dropdown-menu1 li a {
+        padding: 12px 20px;
+        border-bottom: none;
+    }
+
+    .dropdown-menu li a:hover,
+    .dropdown-menu1 li a:hover {
+        background-color: #222;
+        color: rgb(56, 186, 162);
+    }
+
+    .dropdown:hover .dropdown-menu,
+    .dropdown1:hover .dropdown-menu1 {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    /* Buttons */
+    .box3 {
+        display: flex;
+        gap: 15px;
+        align-items: center;
+        z-index: 1002;
+    }
+
+    .ai,
+    .contact {
+        padding: 10px 20px;
+        border-radius: 6px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        cursor: pointer;
+        color: white;
+        transition: 0.3s;
+        text-align: center;
+    }
+
+    .ai {
+        background-color: rgb(56, 186, 162);
+    }
+
+    .ai:hover {
+        background-color: white;
+        color: rgb(56, 186, 162);
+    }
+
+    .contact {
+        background: linear-gradient(90deg, #054a54, rgb(48, 171, 150));
+    }
+
+    .contact:hover {
+        background: white;
+        color: rgb(56, 186, 162);
+    }
+
+    /* Mobile Hamburger */
+    .menu-toggle {
+        display: none;
+    }
+
+    .hamburger {
+        display: none;
+        font-size: 28px;
+        color: white;
+        cursor: pointer;
+        z-index: 1003;
+    }
+
+    /* --- PAGE TITLE --- */
+    .united {
+        width: 100%;
+        padding: 40px 0;
+        background: linear-gradient(to bottom, rgb(48, 171, 150), #054a54);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        font-size: 2.8rem;
+        font-weight: 700;
+        text-align: center;
+    }
+
+    /* --- MAIN GRID CONTAINER --- */
+    .container {
+        display: grid;
+        gap: 30px;
+        padding: 20px;
+        margin: 0 auto;
+        max-width: 1200px;
+        /* Default Mobile: 1 Column */
+        grid-template-columns: 1fr;
+    }
+
+    /* Tablet: 2 Columns */
+    @media (min-width: 600px) {
+        .container {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    /* Desktop: 3 Columns */
+    @media (min-width: 992px) {
+        .container {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+
+    /* --- NEWS ITEMS --- */
+    .news-item {
+        border-radius: 20px;
+        transition: all 0.4s ease-in-out;
+        background-color: #fff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        display: none;
+        /* Hidden by default, JS shows them */
+        overflow: hidden;
+        flex-direction: column;
+    }
+
+    .news-item.show {
+        display: flex;
+        /* Changed to flex to fix layout issues */
+        animation: fadeIn 0.5s;
+    }
+
+    .news-item:hover {
+        transform: translateY(-10px);
+        cursor: pointer;
+    }
+
+    .photos {
+        width: 100%;
+        height: 190px;
+    }
+
+    .photos img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .greens {
+        width: 100%;
+        flex-grow: 1;
+        /* Ensures it fills height if content is short */
+        background-color: rgb(91, 199, 179);
+        padding: 15px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    .content1 {
+        color: white;
+        font-size: 1rem;
+        font-weight: 600;
+        margin-bottom: 15px;
+        line-height: 1.4;
+    }
+
+    .main_conts {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-top: 1px solid rgba(255, 255, 255, 0.3);
+        padding-top: 10px;
+    }
+
+    .conts1 {
+        color: white;
+        font-weight: 600;
+        font-size: 0.9rem;
+    }
+
+    .conts2 {
+        color: white;
+        font-size: 0.85rem;
+    }
+
+    /* --- PAGINATION --- */
+    .longs {
+        width: 100%;
+        margin: 40px auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 15px;
+        flex-wrap: wrap;
+        padding-bottom: 20px;
+    }
+
+    .page-btn {
+        width: 40px;
+        height: 40px;
+        border: 2px solid rgb(91, 199, 179);
+        background: white;
+        color: rgb(91, 199, 179);
+        font-size: 1.2rem;
+        font-weight: 700;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .page-btn:hover,
+    .page-btn.active {
+        background-color: rgb(91, 199, 179);
+        color: white;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+
+    /* --- FOOTER SECTIONS --- */
+    .header-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 30px 5%;
+        margin-top: 60px;
+        background-color: #fff;
+        border-bottom: 1px solid #f0f0f0;
+        width: 100%;
+    }
+
+    .logo-text img {
+        height: 40px;
+        width: auto;
+    }
+
+    .follow-section {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .social-icons {
+        display: flex;
+        gap: 10px;
+    }
+
+    .icon-circle {
+        width: 35px;
+        height: 35px;
+        background-color: #000;
+        color: #fff;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-decoration: none;
+        transition: 0.2s;
+    }
+
+    .icon-circle:hover {
+        transform: scale(1.1);
+        opacity: 0.8;
+    }
+
+    /* Main Footer */
+    .main-footer {
+        background-color: #333;
+        color: #fff;
+        padding: 50px 5%;
+    }
+
+    .footer-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 30px;
+    }
+
+    .column h3 {
+        color: #4ed9b6;
+        margin-bottom: 15px;
+        font-size: 1.1rem;
+    }
+
+    .column ul {
+        list-style: none;
+    }
+
+    .column ul li {
+        font-size: 0.9rem;
+        margin-bottom: 8px;
+        color: #ccc;
+        cursor: pointer;
+    }
+
+    .column ul li:hover {
+        color: white;
+    }
+
+    .footer-bottom-flex {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 40px;
+        border-top: 1px solid #444;
+        padding-top: 30px;
+    }
+
+    .bottom-links {
+        display: flex;
+        gap: 50px;
+    }
+
+    .footer-actions {
+        display: flex;
+        gap: 15px;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        border-radius: 5px;
+        border: none;
+        font-weight: bold;
+        cursor: pointer;
+        font-size: 1rem;
+    }
+
+    .btn-primary {
+        background: #20c997;
+        color: white;
+        height: 6vh;
+    }
+
+    .btn-secondary {
+        background: #20c997;
+        color: rgb(17, 64, 65);
+        height: 6vh;
+    }
+
+    /* .btn {
+  padding: 12px 30px;
+  border-radius: 8px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  min-width: 180px;
+  min-height:50px;
+} */
+
+    .btn-primary {
+        background: linear-gradient(to right, #20c997, #085f63);
+        color: white;
+        font-size: 1.1rem;
+    }
+
+    .btn-secondary {
+        background-color: #20c997;
+        color: white;
+        font-size: 1.1rem;
+    }
+
+    /* Copyright Footer */
+    .site-footer {
+        background-color: #000;
+        color: #fff;
+        padding: 20px 5%;
+        border-top: 1px solid #222;
+        margin-top: auto;
+    }
+
+    .footer-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .iso-section {
+        display: flex;
+        gap: 15px;
+    }
+
+    .iso-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-size: 10px;
+    }
+
+    .iso-item img {
+        height: 30px;
+        width: auto;
+    }
+
+    .footer-links a {
+        color: #fff;
+        text-decoration: none;
+        margin-left: 15px;
+        font-size: 0.8rem;
+    }
+
+    .scroll-top button {
+        background: #38b2ac;
+        color: white;
+        border: none;
+        width: 35px;
+        height: 35px;
+        cursor: pointer;
+    }
+
+    /* --- RESPONSIVENESS --- */
+    @media (max-width: 1024px) {
+        .footer-grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+
+    @media (max-width: 768px) {
+
+        /* Mobile Navigation */
+        .hamburger {
+            display: block;
+        }
+
+        .box2 {
+            display: none;
+            position: absolute;
+            top: 80px;
+            left: 0;
+            width: 100%;
+            background-color: #000;
+            flex-direction: column;
+            padding: 20px;
+        }
+
+        .box2 ul {
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .box2 a {
+            width: 100%;
+            justify-content: center;
+            padding: 15px;
+        }
+
+        #nav-toggle:checked~.box2 {
+            display: flex;
+        }
+
+        .box3 {
+            display: none;
+        }
+
+        /* Footer Mobile */
+        .header-container {
+            flex-direction: column;
+            gap: 20px;
+            text-align: center;
+        }
+
+        .follow-section {
+            flex-direction: column;
+        }
+
+        .footer-grid {
+            grid-template-columns: 1fr;
+            text-align: center;
+        }
+
+        .footer-bottom-flex {
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .bottom-links {
+            flex-direction: column;
+            gap: 20px;
+            text-align: center;
+        }
+
+        .footer-actions {
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .btn {
+            width: 100%;
+        }
+
+        .footer-container {
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .iso-section {
+            justify-content: center;
+        }
+    }
+</style>
+
+<body>
+
+    <nav>
+        <div class="solinas_nav">
+            <div class="solinas_nav_in">
+                <div class="box1">
+                    <div class="solinas"></div>
+                </div>
+
+                <input type="checkbox" id="nav-toggle" class="menu-toggle">
+                <label for="nav-toggle" class="hamburger">&#9776;</label>
+
+                <div class="box2">
+                    <ul>
+                        <li class="dropdown"><a href="index.html">Product <img
+                                    src="https://res.cloudinary.com/dtw64z2mf/image/upload/v1763656842/material-symbols--keyboard-arrow-down_qfzr6n.svg"></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Endobot</a></li>
+                                <li><a href="#">Homosep Sewer</a></li>
+                                <li><a href="#">Swasth Ai</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown"><a href="#">Services <img
+                                    src="https://res.cloudinary.com/dtw64z2mf/image/upload/v1763656842/material-symbols--keyboard-arrow-down_qfzr6n.svg"></a>
+                            <ul class="dropdown-menu1">
+                                <li><a href="#">Inspection</a></li>
+                                <li><a href="#">Cleaning</a></li>
+                                <li><a href="#">Digitization</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown1"><a href="#">Resources <img
+                                    src="https://res.cloudinary.com/dtw64z2mf/image/upload/v1763656842/material-symbols--keyboard-arrow-down_qfzr6n.svg"></a>
+                            <ul class="dropdown-menu1">
+                                <li><a href="solinas2.html">Newsroom</a></li>
+                                <li><a href="#">Case Studies</a></li>
+                                <li><a href="solinas3.html">Blogs</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown1"><a href="#">Company <img
+                                    src="https://res.cloudinary.com/dtw64z2mf/image/upload/v1763656842/material-symbols--keyboard-arrow-down_qfzr6n.svg"></a>
+                            <ul class="dropdown-menu1">
+                                <li><a href="#">About Us</a></li>
+                                <li><a href="#">CSR</a></li>
+                                <li><a href="#">Careers</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="box3">
+                    <div class="ai">Swasth Ai</div>
+                    <div class="contact">Contact Us</div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="united">Blogs</div>
+    <br>
+
+    <div class="container" id="mainContainer">
+
+        <div class="news-item">
+            <div class="photos"><img
+                    src="https://solinas.in/wp-content/uploads/2025/12/bwssb-robots-183441460-16x9_0.avif"></div>
+            <div class="greens">
+                <div class="content1">
+                    <p>Solinas Integrity News: Why Bengaluru deployed robotic tech to fix city’s leaking water pipelines
+                    </p>
+                </div>
+                <div class="main_conts">
+                    <div class="conts1">India Today</div>
+                    <div class="conts2">Dec 19, 2025</div>
+                </div>
+            </div>
+        </div>
+        <div class="news-item">
+            <div class="photos"><img
+                    src="https://solinas.in/wp-content/uploads/2025/12/bengaluru39s-water-board-is-now-using-robots-to-inspect-sewer-lines-a-move-that-drastically-cuts-down-on-disruptive-road-digging.avif">
+            </div>
+            <div class="greens">
+                <div class="content1">
+                    <p>Solinas Integrity News: Robots revolutionise sewer repairs in Bengaluru as 38 major roads saved
+                        from digging</p>
+                </div>
+                <div class="main_conts">
+                    <div class="conts1">The Times of India </div>
+                    <div class="conts2"> December 17, 2025</div>
+                </div>
+            </div>
+        </div>
+        <div class="news-item">
+            <div class="photos"><img
+                    src="https://solinas.in/wp-content/uploads/2025/12/bengaluru39s-water-board-is-now-using-robots-to-inspect-sewer-lines-a-move-that-drastically-cuts-down-on-disruptive-road-digging.avif">
+            </div>
+            <div class="greens">
+                <div class="content1">
+                    <p>Solinas Integrity News: Use of robotic tech avoids digging at 38 sites to fix leakage: BWSSB</p>
+                </div>
+                <div class="main_conts">
+                    <div class="conts1">The Hindu </div>
+                    <div class="conts2"> December 17, 2025</div>
+                </div>
+            </div>
+        </div>
+        <div class="news-item">
+            <div class="photos"><img
+                    src="https://solinas.in/wp-content/uploads/2025/11/WhatsApp-Image-2025-11-21-at-2.56.48-PM.jpeg">
+            </div>
+            <div class="greens">
+                <div class="content1">
+                    <p>Solinas Integrity News: Robotic Tech to Stop Illegal Water</p>
+                </div>
+                <div class="main_conts">
+                    <div class="conts1">The Hindu</div>
+                    <div class="conts2"> November 20, 2025</div>
+                </div>
+            </div>
+        </div>
+        <div class="news-item">
+            <div class="photos"><img
+                    src="https://solinas.in/wp-content/uploads/2025/11/deccanherald_2025-11-10_pibpswjm_Solimas.jpg">
+            </div>
+            <div class="greens">
+                <div class="content1">
+                    <p>Solinas Integrity News: Tech for India’s Urban Water</p>
+                </div>
+                <div class="main_conts">
+                    <div class="conts1">Deccan Herald </div>
+                    <div class="conts2"> November 14, 2025</div>
+                </div>
+            </div>
+        </div>
+        <div class="news-item">
+            <div class="photos"><img
+                    src="https://solinas.in/wp-content/uploads/2025/11/bangalore-water-supply-and-sewerage-board-to-deploy-robots-to-tackle-illegal-water-ugd-connections.jpg">
+            </div>
+            <div class="greens">
+                <div class="content1">
+                    <p>Solinas Integrity News: Bangalore Water Supply and Sewerage Board to deploy robots</p>
+                </div>
+                <div class="main_conts">
+                    <div class="conts1">The Times of India</div>
+                    <div class="conts2"> November 4, 2025</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="news-item">
+            <div class="photos"><img src="https://solinas.in/wp-content/uploads/2025/10/robo.jpg.webp"></div>
+            <div class="greens">
+                <div class="content1">
+                    <p>Solinas Integrity News: Checking water pollution with robots</p>
+                </div>
+                <div class="main_conts">
+                    <div class="conts1">Sakshi News</div>
+                    <div class="conts2"> October 17, 2025</div>
+                </div>
+            </div>
+        </div>
+        <div class="news-item">
+            <div class="photos"><img src="https://solinas.in/wp-content/uploads/2025/08/Nagpur-photo-scaled.jpg"></div>
+            <div class="greens">
+                <div class="content1">
+                    <p>How water-techs make every drop count The Hindu Business Line </p>
+                </div>
+                <div class="main_conts">
+                    <div class="conts1">The Hindu Business Line</div>
+                    <div class="conts2"> September 3, 2025</div>
+                </div>
+            </div>
+        </div>
+        <div class="news-item">
+            <div class="photos"><img
+                    src="https://solinas.in/wp-content/uploads/2025/08/newindianexpress_2025-08-12_k8gpx0lx_New-Project-2025-08-12T090320.095.webp">
+            </div>
+            <div class="greens">
+                <div class="content1">
+                    <p>Robotic crawlers to help GCC check quality of desilting work</p>
+                </div>
+                <div class="main_conts">
+                    <div class="conts1">New Indian Express </div>
+                    <div class="conts2"> August 12, 2025</div>
+                </div>
+            </div>
+        </div>
+        <div class="news-item">
+            <div class="photos"><img src="https://solinas.in/wp-content/uploads/2025/06/Nagpur-TOI-News.avif"></div>
+            <div class="greens">
+                <div class="content1">
+                    <p>Endobot robocam deployed to track water and sewer pipeline issues in Nagpur The Times of India 
+                        June 11, 2025.</p>
+                </div>
+                <div class="main_conts">
+                    <div class="conts1">The Times of India</div>
+                    <div class="conts2"> June 11, 2025</div>
+                </div>
+            </div>
+        </div>
+        <div class="news-item">
+            <div class="photos"><img
+                    src="https://solinas.in/wp-content/uploads/2025/06/Robots-soon-to-dig-out-faults-in-Belagavi-drainage-system.jpg">
+            </div>
+            <div class="greens">
+                <div class="content1">
+                    <p>Robots soon to dig out faults in Belagavi drainage system</p>
+                </div>
+                <div class="main_conts">
+                    <div class="conts1">The Hindu</div>
+                    <div class="conts2"> June 5, 2025</div>
+                </div>
+            </div>
+        </div>
+        <div class="news-item">
+            <div class="photos"><img src="https://solinas.in/wp-content/uploads/2025/06/Endobot-is-deployed.jpg"></div>
+            <div class="greens">
+                <div class="content1">
+                    <p>Experts of the Underground – GOTN.</p>
+                </div>
+                <div class="main_conts">
+                    <div class="conts1">GOTN</div>
+                    <div class="conts2">Dec 19, 2025</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="news-item">
+            <div class="photos"><img
+                    src="https://solinas.in/wp-content/uploads/2025/05/An-anti-smog-gun-is-a-device-designed-to-help-reduce-the-concentration-of-smog-particles-in-the-air.webp">
+            </div>
+            <div class="greens">
+                <div class="content1">
+                    <p>Winter is gone, Noida buys 10 smog guns to tackle rising pollution levels</p>
+                </div>
+                <div class="main_conts">
+                    <div class="conts1">Times of India</div>
+                    <div class="conts2"> April 4, 2025</div>
+                </div>
+            </div>
+        </div>
+        <div class="news-item">
+            <div class="photos"><img
+                    src="https://solinas.in/wp-content/uploads/2025/05/The-HomoSEP-robot-homogenises-hardened-sludge-in-s_1743707162472.jpg">
+            </div>
+            <div class="greens">
+                <div class="content1">
+                    <p>Noida introduces robotic machines for sewer cleaning</p>
+                </div>
+                <div class="main_conts">
+                    <div class="conts1">Hindustan Times</div>
+                    <div class="conts2"> April 4, 2025</div>
+                </div>
+            </div>
+        </div>
+        <div class="news-item">
+            <div class="photos"><img
+                    src="https://solinas.in/wp-content/uploads/2025/03/WhatsApp-Image-2025-03-19-at-6.05.34-PM.jpeg">
+            </div>
+            <div class="greens">
+                <div class="content1">
+                    <p>PMC to use robots to identify water contamination, detect leaks in pipelines</p>
+                </div>
+                <div class="main_conts">
+                    <div class="conts1">Times of India </div>
+                    <div class="conts2"> March 21, 2025</div>
+                </div>
+            </div>
+        </div>
+        <div class="news-item">
+            <div class="photos"><img
+                    src="https://solinas.in/wp-content/uploads/2025/03/WhatsApp-Image-2025-03-19-at-6.05.34-PM.jpeg">
+            </div>
+            <div class="greens">
+                <div class="content1">
+                    <p>PMC Starts Robotic Inspection of Old Water Pipes</p>
+                </div>
+                <div class="main_conts">
+                    <div class="conts1">Realty+ </div>
+                    <div class="conts2"> March 17, 2025</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="longs" id="pagination"></div>
+
+    <footer class="header-container">
+        <div class="logo">
+            <span class="logo-text"><img
+                    src="https://solinas.in/wp-content/uploads/2025/03/Solinas-color-1-300x44.png"></span>
+        </div>
+
+        <div class="follow-section">
+            <span class="follow-text">Follow us:</span>
+            <div class="social-icons">
+                <a href="#" class="icon-circle"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" class="icon-circle"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="icon-circle"><i class="fab fa-youtube"></i></a>
+                <a href="#" class="icon-circle"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="icon-circle"><i class="fab fa-x-twitter"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <footer class="main-footer">
+
+        <div class="footer-grid">
+            <div class="column">
+                <h3>Water Pipeline</h3>
+                <ul>
+                    <li>Leak Detection</li>
+                    <li>Condition Assessment</li>
+                    <li>Illegal Connection</li>
+                    <li>Blockage Pinpointing</li>
+                    <li>Condition Assessment</li>
+                </ul>
+            </div>
+            <div class="column">
+                <h3>Sewer & Stormwater Drain</h3>
+                <ul>
+                    <li>Blockage Detection</li>
+                    <li>Condition Assessment</li>
+                    <li>Post Desilting Check</li>
+                    <li>Pre-commissioning Audit</li>
+                </ul>
+            </div>
+            <div class="column">
+                <h3>Others</h3>
+                <ul>
+                    <li>HVAC Lines</li>
+                    <li>Fire Hydrants</li>
+                    <li>Ad hoc Maintenance</li>
+                </ul>
+            </div>
+            <div class="column">
+                <h3>Cleaning</h3>
+                <ul>
+                    <li>Manhole Cleaning</li>
+                    <li>Septic Tank Sludge Removal</li>
+                    <li>Drainage Desilting</li>
+                    <li>Stormwater Drain Cleaning</li>
+                </ul>
+            </div>
+            <div class="column">
+                <h3>Digitization</h3>
+                <ul>
+                    <li>Swasth AI</li>
+                </ul>
+            </div>
+            <div class="column">
+                <h3>Endobot</h3>
+                <ul>
+                    <li>Endo90</li>
+                    <li>Endo120</li>
+                    <li>Endo250</li>
+                    <li>Endo600</li>
+                    <li>EndoRaft</li>
+                </ul>
+            </div>
+            <div class="column">
+                <h3>Homosep Sewer</h3>
+                <ul>
+                    <li class="highlight">Swasth AI</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom-flex">
+            <div class="bottom-links">
+                <div class="column">
+                    <h3>Resources</h3>
+                    <ul>
+                        <li>Newsroom</li>
+                        <li>Case Studies</li>
+                        <li>Blog</li>
+                    </ul>
+                </div>
+                <div class="column">
+                    <h3>Company</h3>
+                    <ul>
+                        <li>About Us</li>
+                        <li>CSR</li>
+                        <li>Careers</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-actions">
+                <button class="btn btn-primary">Swasth AI Login</button>
+                <button class="btn btn-secondary">Contact Us</button>
+            </div>
+        </div>
+
+    </footer>
+
+    <footer class="site-footer">
+        <div class="footer-container">
+
+            <div class="iso-section">
+                <div class="iso-item">
+                    <img src="https://solinas.in/wp-content/uploads/2025/07/Artboard-1@4x-scaled.png"
+                        alt="ISO 9001:2015">
+                    <span>9001:2015</span>
+                </div>
+                <div class="iso-item">
+                    <img src="https://solinas.in/wp-content/uploads/2025/07/Artboard-1-copy-2@4x-scaled.png"
+                        alt="ISO 45001:2018">
+                    <span>4501:2018</span>
+                </div>
+                <div class="iso-item">
+                    <img src="https://solinas.in/wp-content/uploads/2025/07/Artboard-1-copy@4x-scaled.png"
+                        alt="ISO 14001:2015">
+                    <span>1401:2015</span>
+                </div>
+                <div class="iso-item">
+                    <img src="https://solinas.in/wp-content/uploads/2025/07/Artboard-1-copy-5@4x-scaled.png"
+                        alt="ISO 27001:2022">
+                    <span>27001:2022</span>
+                </div>
+            </div>
+
+            <div class="copyright">
+                © 2025 Solinas. All rights reserved.
+            </div>
+
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Term of Use</a>
+            </div>
+
+            <div class="scroll-top">
+                <button aria-label="Scroll to top" onclick="window.scrollTo({top:0, behavior:'smooth'})">▲</button>
+            </div>
+
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const items = document.querySelectorAll('.news-item');
+            const paginationContainer = document.getElementById('pagination');
+
+            // --- THIS NUMBER CONTROLS ITEMS PER PAGE ---
+            const itemsPerPage = 6;
+            // -------------------------------------------
+
+            const totalPages = Math.ceil(items.length / itemsPerPage);
+
+            function showPage(page) {
+                // 1. Hide ALL items first
+                items.forEach(item => item.classList.remove('show'));
+
+                // 2. Calculate the range of items to show for this page
+                const start = (page - 1) * itemsPerPage;
+                const end = start + itemsPerPage;
+
+                // 3. Show ONLY the items in that range
+                for (let i = start; i < end; i++) {
+                    if (items[i]) {
+                        items[i].classList.add('show');
+                    }
+                }
+
+                // 4. Update Button Styles
+                const buttons = document.querySelectorAll('.page-btn');
+                buttons.forEach(btn => btn.classList.remove('active'));
+                if (buttons[page - 1]) buttons[page - 1].classList.add('active');
+            }
+
+            // Create Pagination Buttons
+            for (let i = 1; i <= totalPages; i++) {
+                const btn = document.createElement('button');
+                btn.innerText = i;
+                btn.classList.add('page-btn');
+                btn.addEventListener('click', () => {
+                    showPage(i);
+                    document.querySelector('.container').scrollIntoView({ behavior: 'smooth' });
+                });
+                paginationContainer.appendChild(btn);
+            }
+
+            // Initialize Page 1
+            if (totalPages > 0) {
+                showPage(1);
+            }
+        });
+    </script>
+</body>
+
+</html>

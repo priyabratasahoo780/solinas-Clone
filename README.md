@@ -5,11 +5,11 @@
 
 [![HTML5](https://img.shields.io/badge/HTML5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/HTML)
 [![CSS3](https://img.shields.io/badge/CSS3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS)
-[![JavaScript](https://img.shields.io/badge/JavaScript-%23F7DF1E.svg?style=for-the-badge&logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+[![No JS](https://img.shields.io/badge/No%20JavaScript-Pure%20CSS%20Magic-blueviolet?style=for-the-badge&logo=css3&logoColor=white)](#)
 [![Responsive](https://img.shields.io/badge/Responsive-Design-00c896?style=for-the-badge&logo=googlechrome&logoColor=white)](#)
 [![Status](https://img.shields.io/badge/Status-Live-brightgreen?style=for-the-badge)](#)
 
-> A **pixel-perfect**, fully responsive clone of **[Solinas.in](https://solinas.in)** — India's leading robotics & digitization company for Water & Sanitation infrastructure. Built with pure HTML, CSS & JavaScript — zero frameworks, maximum craft.
+> A **pixel-perfect**, fully responsive clone of **[Solinas.in](https://solinas.in)** — India's leading robotics & digitization company for Water & Sanitation infrastructure. Built with **pure HTML5 & CSS3 only** — no JavaScript, no frameworks, maximum craft.
 
 ---
 
@@ -119,8 +119,8 @@ solinas-Clone/
 | Technology | Usage |
 |-----------|-------|
 | **HTML5** | Semantic structure, accessibility, SEO meta tags |
-| **CSS3** | Flexbox, Grid, Keyframe animations, custom properties, media queries |
-| **Vanilla JavaScript** | Slideshow logic, carousel navigation, dynamic interactions |
+| **CSS3** | Flexbox, Grid, Keyframe animations, CSS variables, media queries |
+| **CSS Animations** | Slideshow, infinite marquee, carousels — all built without JS |
 | **Cloudinary CDN** | Optimized image/video delivery (WebP, SVG, JPG formats) |
 | **Font Awesome 6** | Icon library for impact stats section |
 | **Google Fonts** | Clean, modern typography |
